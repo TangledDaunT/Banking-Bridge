@@ -1,5 +1,3 @@
-⸻
-
 BankBridge – Offline Banking Management System
 
 A Java Swing + SQLite Banking Application using OOP, JDBC, Collections, Multithreading & DAO Architecture
@@ -8,16 +6,16 @@ A Java Swing + SQLite Banking Application using OOP, JDBC, Collections, Multithr
 
 📌 Overview
 
-BankBridge is an offline banking management desktop application built using Java, featuring a modern Swing GUI, secure SQLite database, proper layered architecture, and robust OOP implementation.
+BankBridge is an offline-capable banking management system built using Java, featuring a clean Swing GUI, SQLite database, properly layered design, and complete implementation of OOP, JDBC, Collections, Multithreading, and DAO architecture.
 
-It is designed for academic evaluation and real-world demonstration of key programming concepts:
-	•	Object-Oriented Programming (Inheritance, Polymorphism, Abstraction, Interfaces)
-	•	Collections & Generics
-	•	JDBC Integration (PreparedStatement, ResultSet, Transactions)
-	•	Multithreading & Synchronization
-	•	Clean Code + Modular Architecture
+It is designed for both academic evaluation and real-world demonstration, showcasing:
+	•	Object-Oriented Programming & Clean Architecture
+	•	Robust JDBC Integration
+	•	Multi-threaded Transaction Handling
+	•	Secure Data Storage using SQLite
+	•	Enterprise-style GUI Application Structure
 
-The system enables secure account creation, deposits, withdrawals, transaction safety, and background auditing — even when offline.
+This application enables account creation, deposits, withdrawals, transaction logging, admin operations, and background auditing — all while functioning fully offline.
 
 ⸻
 
@@ -57,150 +55,152 @@ BankBridge/
 └── database/
     └── bank.db (SQLite)
 
-This architecture separates duties cleanly into GUI, Model, DB, DAO, Exceptions, Threads, and Database, following the industry-standard Layered + DAO pattern.
+This layered structure ensures high maintainability, separation of concerns, and scalable code evolution.
 
 ⸻
 
 🎯 Features
 
-✅ Offline Banking System
+✔ Fully Offline Banking System
 
-Works entirely without internet using SQLite.
+Powered by SQLite (embedded database).
 
-✅ Modern GUI (Java Swing)
+✔ Modern, Responsive GUI
 
-Includes:
-	•	Login Page
+Using Java Swing:
+	•	Login
+	•	Create Account
 	•	Dashboard
-	•	Create Account Page
-	•	Transaction Page
+	•	Deposit/Withdraw
 	•	Admin Panel
-	•	Table Views for Accounts & Transactions
+	•	Account & transactions table views
 
-✅ OOP-Driven System
+✔ Strong OOP Implementation
 
-Implements:
-	•	Abstraction (Account, Transaction)
-	•	Inheritance (SavingsAccount, CurrentAccount)
-	•	Polymorphism (applyInterest() behavior differs)
-	•	Encapsulation (secure private fields)
-	•	Interfaces (Repository<T>)
-	•	Constructor Overloading
+Covers:
+	•	Inheritance
+	•	Polymorphism
+	•	Abstraction
+	•	Interfaces
+	•	Method Overloading
 	•	Method Overriding
-	•	Use of super and this
+	•	Constructor Chaining
+	•	Encapsulation
 
-✅ JDBC + SQLite Integration
-	•	Secure connection handling
-	•	PreparedStatement for SQL safety
-	•	ResultSet processing
-	•	Transactions with commit/rollback
-	•	Exception-safe database operations
+✔ JDBC-Based DB Layer
+	•	Database operations via DAO
+	•	PreparedStatement for security
+	•	ResultSet for query handling
+	•	Commit/Rollback for consistency
 
-✅ DAO Architecture
-
-Encapsulates database operations inside:
-	•	AccountDAO
-	•	DBConnection
-	•	Repository<T>
-
-✅ Multithreading & Synchronization
-	•	TransactionEngine performs transactions in parallel
-	•	AuditThread logs activities in background
-	•	synchronized keyword prevents race conditions
+✔ Multithreading
+	•	Transaction Engine (Runnable)
+	•	Background Audit Thread
+	•	Thread synchronization for safe balance updates
 
 ⸻
 
 🧠 OOP Concepts Implemented
 
-1. Inheritance
+Concept	How It Is Implemented
+Abstraction	Account and Transaction abstract classes
+Inheritance	SavingsAccount & CurrentAccount extend Account
+Polymorphism	applyInterest() behaves differently per account
+Interfaces	Repository<T> interface for DAO
+Encapsulation	Private fields + getters/setters everywhere
+Exception Handling	Custom exceptions + try/catch in DAO
+Method Overriding	Deposit/Withdraw logic overrides base
+Constructor Overloading	Multiple constructors in model classes
 
-SavingsAccount and CurrentAccount extend the abstract Account.
-
-2. Polymorphism
-
-Different accounts override applyInterest() uniquely.
-
-3. Abstraction
-
-Account and Transaction define behavior templates for subclasses.
-
-4. Interfaces
-
-Repository<T> defines database CRUD contract.
-
-5. Encapsulation
-
-Private fields with getters/setters protect sensitive state.
-
-6. Exception Handling
-
-Custom exceptions:
-	•	InsufficientFundsException
-	•	InvalidAccountException
-	•	DatabaseConnectionException
-
-7. Constructor Overloading
-
-Multiple constructors for models and transactions.
 
 ⸻
 
-🔧 Database Schema (SQLite)
+🛢 Database Schema (SQLite)
 
-Users Table
+users
 
 Column	Type	Description
 user_id	INTEGER	Primary Key
-username	TEXT	User login name
-password	TEXT	Hashed password
+username	TEXT	User login
+password	TEXT	Encrypted password
 
-Accounts Table
+accounts
 
 Column	Type	Description
 account_id	INTEGER	Primary Key
 user_id	INTEGER	Foreign Key
-type	TEXT	Account type
-balance	REAL	Current balance
+type	TEXT	Savings / Current
+balance	REAL	Money
 
-Transactions Table
+transactions
 
 Column	Type	Description
 transaction_id	INTEGER	Primary Key
 account_id	INTEGER	Foreign Key
 type	TEXT	Deposit / Withdraw / Transfer
-amount	REAL	Amount
-timestamp	DATETIME	Auto time
+amount	REAL	Value
+timestamp	DATETIME	Auto-stamp
 
 
 ⸻
 
-🚀 How to Run the Project
+🔧 JDBC Implementation
 
-1. Prerequisites
-	•	Java JDK 8+
-	•	SQLite JDBC Driver
-	•	Any IDE (IntelliJ recommended)
+This project uses:
+	•	DriverManager to connect SQLite
+	•	PreparedStatement to securely execute SQL
+	•	ResultSet to retrieve data
+	•	Manual Transaction Handling using:
+
+conn.setAutoCommit(false);
+conn.commit();
+conn.rollback();
+
+
+
+DAO Layer ensures all business logic stays modular and reusable.
 
 ⸻
 
-2. Setup the Database
+🖥 HOW TO RUN THE PROJECT (FULL SETUP GUIDE)
 
-Place the file:
-
-database/bank.db
-
-Run the SQL schema if needed.
+This section teaches beginners and advanced users exactly how to run BankBridge on any PC.
 
 ⸻
 
-3. Run the Project
+✅ 1. Prerequisites
 
-Run in IDE
-	•	Open project folder
-	•	Run Main.java
+Make sure you have:
 
-Run in Terminal
-Compile:
+Tool	Required
+Java JDK	8 or above
+IDE	IntelliJ / Eclipse / VS Code
+SQLite DB Browser	optional (for viewing DB)
+SQLite JDBC Driver	Required
+
+Download SQLite JDBC driver (sqlite-jdbc-3.46.x.jar) from Maven repository.
+
+⸻
+
+✅ 2. Project Setup
+
+Option A — Using IntelliJ IDEA (Recommended)
+	1.	Open IntelliJ → Import Project → select your BankBridge folder
+	2.	Mark src/ as Sources Root
+	3.	Add SQLite JDBC driver:
+	•	File → Project Structure → Modules → Dependencies → (+) Add JAR
+	4.	Place bank.db inside the /database folder
+	5.	Run Main.java
+
+⸻
+
+Option B — Running via Terminal (Manual)
+
+Navigate into your project folder:
+
+cd BankBridge
+
+Compile all Java files:
 
 javac -cp ".:sqlite-jdbc.jar" $(find src -name "*.java") -d out
 
@@ -211,30 +211,47 @@ java -cp "out:sqlite-jdbc.jar" Main
 
 ⸻
 
+✅ 3. Database Setup
+
+SQLite requires no installation.
+
+Make sure:
+
+database/bank.db
+
+exists.
+If missing, create a new empty DB:
+	1.	Download DB Browser for SQLite
+	2.	Create new database → Save as bank.db
+	3.	Create tables using the included schema or automatically via DAO logic.
+
+⸻
+
 🌍 Real-World Applications
 	•	Offline banking in rural regions
-	•	Co-operative banks
-	•	Educational finance labs
-	•	Research usage for concurrency & DB design
-	•	Financial kiosks
-	•	Lightweight banking client for SMEs
+	•	Co-operative credit societies
+	•	Training labs in universities
+	•	Small finance solution for SMEs
+	•	Standalone kiosk systems
+	•	Banking research & teaching tool
 
 ⸻
 
 🔮 Future Scope
-	•	Web version using Servlets / Spring Boot
-	•	Mobile app integration
-	•	Biometric / OTP login security
-	•	Export statements as PDF
-	•	Admin dashboard with analytics
-	•	AI-powered fraud detection
+	•	Spring Boot web upgrade
+	•	Android / iOS client app
+	•	PDF bank statements
+	•	Advanced role-based authentication
+	•	AES encryption for sensitive data
+	•	Logging + Analytics Module
 
 ⸻
 
 👤 Authors
 
 Shreyansh Misra
-Shivam Singh
+
+Shivam
 
 B.Tech CSE
 Galgotias University
@@ -243,6 +260,7 @@ Galgotias University
 
 📜 License
 
-This project is free for academic and educational use.
+Open-source for academic and educational usage.
 
 ⸻
+
